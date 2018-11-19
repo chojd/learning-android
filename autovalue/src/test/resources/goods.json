@@ -1,0 +1,10 @@
+{
+  "gid":"goodsid",
+  "name":"goods name",
+  "seller":
+  {
+    "uid":"1234567",
+    "nickname":"tester",
+    "realname":"Gene"
+  }
+}

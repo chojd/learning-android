@@ -1,0 +1,20 @@
+{
+  "status":"success",
+  "code": 0,
+  "items": [
+    {
+      "type": 1002,
+      "content": "I am 1002 content",
+      "ACL": {
+        "ctn1Zeov9d": {
+          "read": true,
+          "write": true
+        },
+        "zn1xx1ov8d": {
+          "read": true,
+          "write": false
+        }
+      }
+    }
+  ]
+}
