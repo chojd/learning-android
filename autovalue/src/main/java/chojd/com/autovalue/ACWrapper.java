@@ -12,9 +12,6 @@ import com.google.gson.TypeAdapter;
 
 @AutoValue
 public abstract class ACWrapper {
-    public abstract String uid();
-    public abstract ACEntity ac();
-
     public static TypeAdapter<ACWrapper> typeAdapter(Gson gson) {
         return new AutoValue_ACWrapper.GsonTypeAdapter(gson);
     }
@@ -22,6 +19,10 @@ public abstract class ACWrapper {
     public static Builder builder() {
         return new AutoValue_ACWrapper.Builder();
     }
+
+    public abstract String uid();
+
+    public abstract ACEntity ac();
 
     @AutoValue.Builder
     public abstract static class Builder {

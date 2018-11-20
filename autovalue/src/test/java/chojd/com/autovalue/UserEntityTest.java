@@ -1,6 +1,5 @@
 package chojd.com.autovalue;
 
-import com.google.common.truth.Truth;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -8,7 +7,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static com.google.common.truth.Truth.assertThat;
 
 public class UserEntityTest {
 
@@ -17,47 +16,53 @@ public class UserEntityTest {
     private static final String sRealname = "Gene";
 
     @Test
-    public void testBuilder () {
+    public void testBuilder() {
 
         UserEntity user = UserEntity.builder().uid(sUid).nickname(sNickname).build();
-        Truth.assertThat(user).isNotNull();
-        Truth.assertThat(user.realname()).isNull();
-        Truth.assertThat(user.uid()).isEqualTo(sUid);
-        Truth.assertThat(user.nickname()).isEqualTo(sNickname);
+        assertThat(user).isNotNull();
+        assertThat(user.realname()).isNull();
+        assertThat(user.uid()).isEqualTo(sUid);
+        assertThat(user.nickname()).isEqualTo(sNickname);
 
         UserEntity expectedUser = UserEntity.builder().uid(sUid).nickname(sNickname).build();
-        Truth.assertThat(user).isEqualTo(expectedUser);
+        assertThat(user).isEqualTo(expectedUser);
     }
 
     @Test(expected = IllegalStateException.class)
     public void testUidNullable() {
         UserEntity user = UserEntity.builder().nickname(sNickname).realname(sRealname).build();
-        Truth.assertThat(user).isNotNull();
+        assertThat(user).isNotNull();
     }
 
     @Test(expected = IllegalStateException.class)
     public void testNicknameNullable() {
         UserEntity user = UserEntity.builder().uid(sUid).realname(sRealname).build();
-        Truth.assertThat(user).isNotNull();
+        assertThat(user).isNotNull();
     }
 
     @Test
     public void testGsonAutoValue() throws IOException {
         String jsonStr = TestUtils.json("user.json", this);
-        Truth.assertThat(jsonStr).isNotNull();
+        assertThat(jsonStr).isNotNull();
         UserEntity user = UserEntity.typeAdapter(defaultGson()).fromJson(jsonStr);
-        Truth.assertThat(user).isNotNull();
-        Truth.assertThat(user.uid()).isEqualTo(sUid);
-        Truth.assertThat(user.nickname()).isEqualTo(sNickname);
-        Truth.assertThat(user.realname()).isEqualTo(sRealname);
+        assertThat(user).isNotNull();
+
+
+        //这三句话可以被下面一句话代替。
+        assertThat(user.uid()).isEqualTo(sUid);
+        assertThat(user.nickname()).isEqualTo(sNickname);
+        assertThat(user.realname()).isEqualTo(sRealname);
+
+        //严格比较对象。
+        assertThat(user).isEqualTo(UserEntity.builder().uid(sUid).nickname(sNickname).realname(sRealname).build());
+
     }
 
     private Gson defaultGson() {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapterFactory(BuyerboxAdapterFactory.create());
         builder.setPrettyPrinting();
-        Gson gson = builder.create();
-        return gson;
+        return builder.create();
     }
 
 }

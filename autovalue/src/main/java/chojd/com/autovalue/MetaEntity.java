@@ -11,11 +11,6 @@ import javax.annotation.Nullable;
 
 @AutoValue
 public abstract class MetaEntity {
-    public abstract String status();
-    public abstract int code();
-    @Nullable
-    public abstract ArrayList<Item1002Entity>items();
-
     public static TypeAdapter<MetaEntity> typeAdapter(Gson gson) {
         return new AutoValue_MetaEntity.GsonTypeAdapter(gson);
     }
@@ -23,6 +18,13 @@ public abstract class MetaEntity {
     public static Builder builder() {
         return new AutoValue_MetaEntity.Builder();
     }
+
+    public abstract String status();
+
+    public abstract int code();
+
+    @Nullable
+    public abstract ArrayList<Item1002Entity> items();
 
     @AutoValue.Builder
     public abstract static class Builder {

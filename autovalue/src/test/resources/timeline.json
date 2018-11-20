@@ -1,5 +1,5 @@
 {
-  "status":"success",
+  "status": "success",
   "code": 0,
   "items": [
     {
@@ -7,12 +7,12 @@
       "content": "I am 1002 content",
       "ACL": {
         "ctn1Zeov9d": {
-          "read": true,
-          "write": true
+          "write": true,
+          "read": true
         },
         "zn1xx1ov8d": {
-          "read": true,
-          "write": false
+          "write": false,
+          "read": true
         }
       }
     }

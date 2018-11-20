@@ -10,9 +10,6 @@ import javax.annotation.Nullable;
 
 @AutoValue
 public abstract class ACLWrapper {
-    @Nullable
-    public abstract List<ACWrapper> acList();
-
     public static TypeAdapter<ACLWrapper> typeAdapter(Gson gson) {
         return new AutoValue_ACLWrapper.GsonTypeAdapter(gson);
     }
@@ -20,6 +17,9 @@ public abstract class ACLWrapper {
     public static Builder builder() {
         return new AutoValue_ACLWrapper.Builder();
     }
+
+    @Nullable
+    public abstract List<ACWrapper> acList();
 
     @AutoValue.Builder
     public abstract static class Builder {

@@ -1,6 +1,5 @@
 package chojd.com.autovalue;
 
-import android.util.ArrayMap;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
@@ -11,11 +10,11 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 //        {
@@ -23,7 +22,7 @@ import java.util.Set;
 //            "zn1xx1ov8d":{"read":true,"write":false}
 //        }
 
-public class ACLJSONSerialization implements JsonDeserializer<ACLWrapper>,JsonSerializer<ACLWrapper> {
+public class ACLJSONSerialization implements JsonDeserializer<ACLWrapper>, JsonSerializer<ACLWrapper> {
     private final Gson baseGson;
 
     public ACLJSONSerialization(Gson baseGson) {
@@ -65,22 +64,22 @@ public class ACLJSONSerialization implements JsonDeserializer<ACLWrapper>,JsonSe
             return null;
         }
 
-        ArrayMap<String,ArrayMap<String, Boolean>> result = new ArrayMap<>(src.acList().size());
-        List<ACWrapper>list = src.acList();
-        for (ACWrapper acWrapper:  list) {
+        Map<String, Map<String, Boolean>> result = new HashMap<>(src.acList().size());
+        List<ACWrapper> list = src.acList();
+        for (ACWrapper acWrapper : list) {
             if (acWrapper.uid() == null || acWrapper.ac() == null) {
                 continue;
             }
-            ArrayMap<String, Boolean>acMap = new ArrayMap<>(2);
+            Map<String, Boolean> acMap = new HashMap<>(2);
 
             ACEntity ac = acWrapper.ac();
 
-            acMap.put("read", ac.read());
             acMap.put("write", ac.write());
-            result.put(acWrapper.uid(),acMap);
+            acMap.put("read", ac.read());
+            result.put(acWrapper.uid(), acMap);
         }
 
-        Gson gson=new Gson();
+        Gson gson = new Gson();
         return gson.toJsonTree(result);
     }
 }
