@@ -9,13 +9,6 @@ import javax.annotation.Nullable;
 @AutoValue
 public abstract class UserEntity {
 
-    public abstract String uid();
-
-    public abstract String nickname();
-
-    @Nullable
-    public abstract String realname();
-
     public static Builder builder() {
         return new AutoValue_UserEntity.Builder();
     }
@@ -23,6 +16,13 @@ public abstract class UserEntity {
     public static TypeAdapter<UserEntity> typeAdapter(Gson gson) {
         return new AutoValue_UserEntity.GsonTypeAdapter(gson);
     }
+
+    public abstract String uid();
+
+    public abstract String nickname();
+
+    @Nullable
+    public abstract String realname();
 
     @AutoValue.Builder
     public abstract static class Builder {

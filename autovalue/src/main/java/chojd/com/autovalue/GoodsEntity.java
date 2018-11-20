@@ -1,20 +1,12 @@
 package chojd.com.autovalue;
 
 import com.google.auto.value.AutoValue;
-
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
 @AutoValue
 public abstract class GoodsEntity {
-
-    public abstract String gid();
-
-    public abstract String name();
-
-    @SerializedName("seller")
-    public abstract UserEntity owner();
 
     public static Builder builder() {
         return new AutoValue_GoodsEntity.Builder();
@@ -23,6 +15,13 @@ public abstract class GoodsEntity {
     public static TypeAdapter<GoodsEntity> typeAdapter(Gson gson) {
         return new AutoValue_GoodsEntity.GsonTypeAdapter(gson);
     }
+
+    public abstract String gid();
+
+    public abstract String name();
+
+    @SerializedName("seller")
+    public abstract UserEntity owner();
 
     @AutoValue.Builder
     public abstract static class Builder {

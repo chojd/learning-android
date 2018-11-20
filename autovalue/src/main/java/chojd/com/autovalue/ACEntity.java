@@ -6,9 +6,6 @@ import com.google.gson.TypeAdapter;
 
 @AutoValue
 public abstract class ACEntity {
-    public abstract boolean read();
-    public abstract boolean write();
-
     public static Builder builder() {
         return new AutoValue_ACEntity.Builder();
     }
@@ -16,6 +13,10 @@ public abstract class ACEntity {
     public static TypeAdapter<ACEntity> typeAdapter(Gson gson) {
         return new AutoValue_ACEntity.GsonTypeAdapter(gson);
     }
+
+    public abstract boolean read();
+
+    public abstract boolean write();
 
     @AutoValue.Builder
     public abstract static class Builder {

@@ -1,6 +1,5 @@
 package chojd.com.autovalue;
 
-import com.google.common.truth.Truth;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -10,7 +9,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static com.google.common.truth.Truth.assertThat;
 
 public class GoodsEntityTest {
 
@@ -20,34 +19,36 @@ public class GoodsEntityTest {
     private static final String sOwnerNickname = "tester";
 
     @Before
-        public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
     public void testBuilder() {
         UserEntity user = UserEntity.builder().uid(sOwnerID).nickname(sOwnerNickname).build();
-        Truth.assertThat(user).isNotNull();
+        assertThat(user).isNotNull();
         GoodsEntity goods = GoodsEntity.builder().gid(sGid).name(sName).owner(user).build();
-        Truth.assertThat(goods).isNotNull();
-        Truth.assertThat(goods.gid()).isEqualTo(sGid);
-        Truth.assertThat(goods.name()).isEqualTo(sName);
+        assertThat(goods).isNotNull();
+        assertThat(goods.gid()).isEqualTo(sGid);
+        assertThat(goods.name()).isEqualTo(sName);
     }
 
     @Test
     public void testGsonAutoValue() throws IOException {
         String jsonStr = TestUtils.json("goods.json", this);
-        Truth.assertThat(jsonStr).isNotNull();
+        assertThat(jsonStr).isNotNull();
         GoodsEntity goods = GoodsEntity.typeAdapter(defaultGson()).fromJson(jsonStr);
-        Truth.assertThat(goods).isNotNull();
-        Truth.assertThat(goods.gid()).isEqualTo(sGid);
-        Truth.assertThat(goods.name()).isEqualTo(sName);
-        Truth.assertThat(goods.owner()).isNotNull();
-        Truth.assertThat(goods.owner().uid()).isEqualTo(sOwnerID);
-        Truth.assertThat(goods.owner().nickname()).isEqualTo(sOwnerNickname);
+        assertThat(goods).isNotNull();
+        //如果你需要比较整个对象里的所有字段，干脆久直接去比较这个对象。
+        //
+        assertThat(goods.gid()).isEqualTo(sGid);
+        assertThat(goods.name()).isEqualTo(sName);
+        assertThat(goods.owner()).isNotNull();
+        assertThat(goods.owner().uid()).isEqualTo(sOwnerID);
+        assertThat(goods.owner().nickname()).isEqualTo(sOwnerNickname);
     }
 
     private Gson defaultGson() {

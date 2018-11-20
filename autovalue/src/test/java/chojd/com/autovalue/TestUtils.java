@@ -10,6 +10,7 @@ public class TestUtils {
 
     private static File file(String fileName, Object obj) {
         ClassLoader classLoader = obj.getClass().getClassLoader();
+        assert classLoader != null;
         URL resource = classLoader.getResource(fileName);
         assert resource != null;
         return new File(resource.getPath());

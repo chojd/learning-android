@@ -3,11 +3,8 @@ package chojd.com.autovalue;
 
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
-import com.google.gson.JsonDeserializer;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
@@ -26,12 +23,6 @@ import javax.annotation.Nullable;
 
 @AutoValue
 public abstract class Item1002Entity {
-    public abstract int type();
-    public abstract String content();
-    @Nullable
-    @SerializedName("ACL")
-    public abstract ACLWrapper acl();
-
     public static TypeAdapter<Item1002Entity> typeAdapter(Gson gson) {
         return new AutoValue_Item1002Entity.GsonTypeAdapter(gson);
     }
@@ -39,6 +30,14 @@ public abstract class Item1002Entity {
     public static Builder builder() {
         return new AutoValue_Item1002Entity.Builder();
     }
+
+    public abstract int type();
+
+    public abstract String content();
+
+    @Nullable
+    @SerializedName("ACL")
+    public abstract ACLWrapper acl();
 
     @AutoValue.Builder
     public abstract static class Builder {
