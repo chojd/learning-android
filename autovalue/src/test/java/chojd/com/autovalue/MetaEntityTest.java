@@ -55,6 +55,7 @@ public class MetaEntityTest {
     private Gson aclGson() {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapterFactory(BuyerboxAdapterFactory.create());
+        builder.setPrettyPrinting();
         builder.registerTypeAdapter(ACLWrapper.class, new ACLJSONSerialization(baseGson()));
         return builder.create();
     }

@@ -1,6 +1,5 @@
 package chojd.com.autovalue;
 
-import android.util.ArrayMap;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
@@ -13,7 +12,9 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 //        {
@@ -63,18 +64,18 @@ public class ACLJSONSerialization implements JsonDeserializer<ACLWrapper>, JsonS
             return null;
         }
 
-        ArrayMap<String, ArrayMap<String, Boolean>> result = new ArrayMap<>(src.acList().size());
+        Map<String, Map<String, Boolean>> result = new HashMap<>(src.acList().size());
         List<ACWrapper> list = src.acList();
         for (ACWrapper acWrapper : list) {
             if (acWrapper.uid() == null || acWrapper.ac() == null) {
                 continue;
             }
-            ArrayMap<String, Boolean> acMap = new ArrayMap<>(2);
+            Map<String, Boolean> acMap = new HashMap<>(2);
 
             ACEntity ac = acWrapper.ac();
 
-            acMap.put("read", ac.read());
             acMap.put("write", ac.write());
+            acMap.put("read", ac.read());
             result.put(acWrapper.uid(), acMap);
         }
 
