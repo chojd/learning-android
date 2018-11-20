@@ -17,11 +17,11 @@ public class MetaEntityTest {
     private static final int sCode = 0;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
@@ -48,7 +48,7 @@ public class MetaEntityTest {
         String jsonStr = TestUtils.json("timeline.json", this);
         assertThat(jsonStr).isNotNull();
         MetaEntity meta = MetaEntity.typeAdapter(aclGson()).fromJson(jsonStr);
-        String resultJsonStr = aclGson().toJson(meta).toString();
+        String resultJsonStr = aclGson().toJson(meta);
         assertThat(resultJsonStr).isEqualTo(jsonStr);
     }
 
