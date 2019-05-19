@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/autovalue" />
             <option value="$PROJECT_DIR$/dagger" />
             <option value="$PROJECT_DIR$/dagger2" />
+            <option value="$PROJECT_DIR$/httpservice" />
             <option value="$PROJECT_DIR$/retrofit" />
           </set>
         </option>

@@ -1,4 +1,4 @@
-package chojd.com.retrofit;
+package cn.com.ofashion.httpservice;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("chojd.com.retrofit.test", appContext.getPackageName());
+        assertEquals("cn.com.ofashion.httpservice.test", appContext.getPackageName());
     }
 }
