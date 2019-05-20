@@ -12,14 +12,16 @@ import okhttp3.Response;
 
 public class HTTPRequest {
     private OkHttpClient client;
+    private Request request;
 
     @Inject
-    HTTPRequest(@NonNull OkHttpClient client) {
+    HTTPRequest(@NonNull OkHttpClient client, @NonNull Request request) {
         this.client = client;
+        this.request = request;
     }
 
-    String execute(Request request) {
-        try (Response response = client.newCall(request).execute()){
+    String execute() {
+        try (Response response = client.newCall(this.request).execute()){
             assert response.body() != null;
             return response.body().string();
         } catch (IOException e) {
