@@ -3,9 +3,9 @@ package cn.com.ofashion.httpservice;
 import dagger.BindsInstance;
 import dagger.Component;
 
-@Component(modules = OkHttpModule.class)
+@Component(modules = RetrofitModule.class)
 public interface HTTPComponent {
-    HTTPRequest httpRequest();
+    RetrofitApi retrofit();
 
     @Component.Builder
     interface Builder {

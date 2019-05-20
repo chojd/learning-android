@@ -36,6 +36,6 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.20'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.20'
 
-    // retrofit
+    // retrofit3
     implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.5.0'
 }
