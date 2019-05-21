@@ -22,9 +22,9 @@ public class HTTPServiceTest {
         Call<Metadata> call = retrofitApi.getService("who");
         Response<Metadata> execute = call.execute();
         Metadata metadata = execute.body();
-        assertEquals(metadata.message, "success");
-        assertEquals(metadata.code, 0);
-        assertNotNull(metadata.data);
-        assertTrue(metadata.data instanceof Map);
+        assertEquals(metadata.message(), "success");
+        assertEquals(metadata.code(), 0);
+        assertNotNull(metadata.data());
+        assertTrue(metadata.data() instanceof Map);
     }
 }
