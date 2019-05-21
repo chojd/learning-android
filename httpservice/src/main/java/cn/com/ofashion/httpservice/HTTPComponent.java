@@ -11,7 +11,7 @@ public interface HTTPComponent {
     interface Builder {
 
         @BindsInstance
-        Builder url(String url);
+        Builder baseUrl(String baseUrl);
 
         HTTPComponent build();
     }
