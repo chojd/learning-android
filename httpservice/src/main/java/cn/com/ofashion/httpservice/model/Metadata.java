@@ -1,4 +1,4 @@
-package cn.com.ofashion.httpservice;
+package cn.com.ofashion.httpservice.model;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

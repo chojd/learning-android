@@ -1,11 +1,12 @@
-package cn.com.ofashion.httpservice;
+package cn.com.ofashion.httpservice.di;
 
+import cn.com.ofashion.httpservice.api.RetrofitApi;
 import dagger.BindsInstance;
 import dagger.Component;
 
 @Component(modules = RetrofitModule.class)
 public interface HTTPComponent {
-    RetrofitApi retrofit();
+    RetrofitApi retrofitApi();
 
     @Component.Builder
     interface Builder {

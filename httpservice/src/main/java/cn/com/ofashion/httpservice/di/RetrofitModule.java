@@ -1,9 +1,9 @@
-package cn.com.ofashion.httpservice;
+package cn.com.ofashion.httpservice.di;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
 
+import cn.com.ofashion.httpservice.api.RetrofitApi;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -19,7 +19,9 @@ class RetrofitModule {
     }
 
     @Provides
-    Retrofit provideRetrofit(OkHttpClient client, String baseUrl, GsonConverterFactory factory) {
+    Retrofit provideRetrofit(OkHttpClient client,
+                             String baseUrl,
+                             GsonConverterFactory factory) {
     return new Retrofit.Builder()
             .client(client)
             .addConverterFactory(factory)

@@ -1,11 +1,11 @@
-package cn.com.ofashion.httpservice;
+package cn.com.ofashion.httpservice.di;
 
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 
 @Module
-public class OkHttpModule {
+class OkHttpModule {
 
     @Provides
     OkHttpClient provideOkHttpClient() {

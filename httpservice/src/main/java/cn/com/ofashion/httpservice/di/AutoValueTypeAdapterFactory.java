@@ -1,4 +1,4 @@
-package cn.com.ofashion.httpservice;
+package cn.com.ofashion.httpservice.di;
 
 import com.google.gson.TypeAdapterFactory;
 import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
