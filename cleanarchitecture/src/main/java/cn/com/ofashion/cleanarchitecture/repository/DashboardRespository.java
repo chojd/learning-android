@@ -8,9 +8,9 @@ import cn.com.ofashion.cleanarchitecture.model.Dashboard;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
-final class DashboardRespository {
+public final class DashboardRespository {
 
-    Dashboard getDashboard(String baseUrl) throws IOException {
+    public Dashboard getDashboard(String baseUrl) throws IOException {
         Retrofit mRetrofit = DaggerHTTPComponent.builder().baseUrl(baseUrl).build().retrofit();
         SchoolApi api = mRetrofit.create(SchoolApi.class);
         Call<Dashboard> dashboardCall = api.getDashboard();
