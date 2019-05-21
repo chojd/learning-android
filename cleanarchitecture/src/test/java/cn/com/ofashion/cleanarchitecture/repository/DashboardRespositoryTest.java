@@ -1,4 +1,4 @@
-package cn.com.ofashion.cleanarchitecture.api;
+package cn.com.ofashion.cleanarchitecture.repository;
 
 import org.junit.After;
 import org.junit.Before;
@@ -6,20 +6,16 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import cn.com.ofashion.cleanarchitecture.di.DaggerHTTPComponent;
 import cn.com.ofashion.cleanarchitecture.model.Dashboard;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import retrofit2.Call;
-import retrofit2.Retrofit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
-public class SchoolApiTest{
+public class DashboardRespositoryTest {
 
     private MockWebServer mServer;
-    private Retrofit mRetrofit;
+    private String mBaseUrl;
 
     @Before
     public void setUp() throws Exception {
@@ -27,29 +23,22 @@ public class SchoolApiTest{
         assertNotNull(mServer);
         mServer.start();
 
-        String baseUrl = "http://" + mServer.getHostName() + ":" + mServer.getPort();
-        assertNotNull(baseUrl);
-        System.out.println(baseUrl);
-
-        mRetrofit = DaggerHTTPComponent.builder().baseUrl(baseUrl).build().retrofit();
-        assertNotNull(mRetrofit);
+        mBaseUrl = "http://" + mServer.getHostName() + ":" + mServer.getPort();
+        assertNotNull(mBaseUrl);
     }
 
     @After
     public void tearDown() throws Exception {
-        mServer.close();
     }
 
     @Test
     public void getDashboard() throws IOException {
-
         MockResponse mockResponse = new MockResponse()
                 .setBody("{\"teacher\":{\"name\":\"teacher_name\"},\"student\":{\"name\":\"student_name\"}}");
         mServer.enqueue(mockResponse);
 
-        SchoolApi api = mRetrofit.create(SchoolApi.class);
-        Call<Dashboard> dashboardCall = api.getDashboard();
-        Dashboard dashboard = dashboardCall.execute().body();
+        Dashboard dashboard = new DashboardRespository().getDashboard(mBaseUrl);
+
         assertNotNull(dashboard);
 
         assertNotNull(dashboard.teacher());
@@ -58,5 +47,4 @@ public class SchoolApiTest{
         assertNotNull(dashboard.student());
         assertEquals(dashboard.student().name(), "student_name");
     }
-
 }

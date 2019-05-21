@@ -13,9 +13,11 @@ import okhttp3.mockwebserver.MockWebServer;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-public class TestApiTest {
+
+public class TestApiTest{
 
     private MockWebServer mServer;
     private Retrofit mRetrofit;
