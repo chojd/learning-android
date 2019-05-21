@@ -1,4 +1,4 @@
-package cn.com.ofashion.cleanarchitecture.http;
+package cn.com.ofashion.cleanarchitecture.di;
 
 import dagger.Module;
 import dagger.Provides;

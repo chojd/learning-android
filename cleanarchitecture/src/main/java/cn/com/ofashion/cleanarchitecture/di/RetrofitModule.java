@@ -1,8 +1,8 @@
-package cn.com.ofashion.cleanarchitecture.http;
+package cn.com.ofashion.cleanarchitecture.di;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -28,7 +28,8 @@ class RetrofitModule {
 
     @Provides
     Gson provideGson() {
-        return new Gson();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapterFactory(AutoValueTypeAdapterFactory.create());
+        return builder.create();
     }
-
 }
