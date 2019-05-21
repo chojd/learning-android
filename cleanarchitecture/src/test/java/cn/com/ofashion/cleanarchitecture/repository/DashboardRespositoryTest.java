@@ -23,8 +23,7 @@ public class DashboardRespositoryTest {
         assertNotNull(mServer);
         mServer.start();
 
-        mBaseUrl = "http://" + mServer.getHostName() + ":" + mServer.getPort();
-        assertNotNull(mBaseUrl);
+        mBaseUrl = mServer.url("/").toString();
     }
 
     @After

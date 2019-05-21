@@ -27,7 +27,7 @@ public class SchoolApiTest{
         assertNotNull(mServer);
         mServer.start();
 
-        String baseUrl = "http://" + mServer.getHostName() + ":" + mServer.getPort();
+        String baseUrl = mServer.url("/").toString();
         assertNotNull(baseUrl);
         System.out.println(baseUrl);
 
