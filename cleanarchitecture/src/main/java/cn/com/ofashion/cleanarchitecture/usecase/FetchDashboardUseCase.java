@@ -8,8 +8,9 @@ import io.reactivex.Single;
 
 public class FetchDashboardUseCase {
 
-    public Single<Dashboard> getDashboard(String baseUrl) throws IOException {
-        Dashboard dashboard = new DashboardRespository().getDashboard(baseUrl);
-        return Single.just(dashboard);
+    public Single<Dashboard> getDashboard(final String baseUrl) throws IOException {
+        final DashboardRespository dashboardRespository = new DashboardRespository();
+        Single<Dashboard> dashboardSingle = Single.fromCallable(() -> dashboardRespository.getDashboard(baseUrl));
+        return dashboardSingle;
     }
 }
