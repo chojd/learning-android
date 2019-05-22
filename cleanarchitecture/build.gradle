@@ -60,4 +60,9 @@ dependencies {
     annotationProcessor "com.ryanharter.auto.value:auto-value-gson:1.0.0"
     testImplementation "com.ryanharter.auto.value:auto-value-gson-runtime:1.0.0"
     testAnnotationProcessor "com.ryanharter.auto.value:auto-value-gson:1.0.0"
+
+    // https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava
+    implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.8'
+    testImplementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.8'
+
 }
