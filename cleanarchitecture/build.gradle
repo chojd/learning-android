@@ -69,4 +69,7 @@ dependencies {
     implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.8'
     testImplementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.8'
 
+    // https://mvnrepository.com/artifact/com.google.truth/truth
+    testImplementation group: 'com.google.truth', name: 'truth', version: '0.44'
+
 }

@@ -1,5 +1,7 @@
 package cn.com.ofashion.cleanarchitecture.api;
 
+import com.google.common.truth.Truth;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,32 +15,27 @@ import okhttp3.mockwebserver.MockWebServer;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-
 public class TestApiTest{
 
-    private MockWebServer mServer;
-    private Retrofit mRetrofit;
+    private MockWebServer server;
+    private Retrofit retrofit;
 
     @Before
     public void setUp() throws Exception {
-        mServer = new MockWebServer();
-        assertNotNull(mServer);
-        mServer.start();
+        server = new MockWebServer();
+        Truth.assertThat(server).isNotNull();
+        server.start();
 
-        String baseUrl = mServer.url("/").toString();
-        assertNotNull(baseUrl);
-        System.out.println(baseUrl);
+        String baseUrl = server.url("/").toString();
+        Truth.assertThat(baseUrl).isNotNull();
 
-        mRetrofit = DaggerHTTPComponent.builder().baseUrl(baseUrl).build().retrofit();
-        assertNotNull(mRetrofit);
+        retrofit = DaggerHTTPComponent.builder().baseUrl(baseUrl).build().retrofit();
+        Truth.assertThat(retrofit).isNotNull();
     }
 
     @After
     public void tearDown() throws Exception {
-        mServer.close();
+        server.close();
     }
 
     @Test
@@ -46,11 +43,12 @@ public class TestApiTest{
 
         MockResponse mockResponse = new MockResponse()
                 .setBody("{\"name\":\"gene\"}");
-        mServer.enqueue(mockResponse);
+        server.enqueue(mockResponse);
 
-        TestApi api = mRetrofit.create(TestApi.class);
+        TestApi api = retrofit.create(TestApi.class);
         Call<Map> from = api.getTest();
         Map body = from.execute().body();
-        assertEquals(body.get("name"), "gene");
+        String name = (String) body.get("name");
+        Truth.assertThat(name).isEqualTo("gene");
     }
 }

@@ -17,16 +17,16 @@ import static org.junit.Assert.*;
 
 public class FetchDashboardUseCaseTest {
 
-    private MockWebServer mServer;
-    private String mBaseUrl;
+    private MockWebServer server;
+    private String baseurl;
 
     @Before
     public void setUp() throws Exception {
-        mServer = new MockWebServer();
-        assertNotNull(mServer);
-        mServer.start();
+        server = new MockWebServer();
+        assertNotNull(server);
+        server.start();
 
-        mBaseUrl = mServer.url("/").toString();
+        baseurl = server.url("/").toString();
     }
 
     @After
@@ -37,9 +37,9 @@ public class FetchDashboardUseCaseTest {
     public void getDashboard() throws IOException {
         MockResponse mockResponse = new MockResponse()
                 .setBody("{\"teacher\":{\"name\":\"teacher_name\",\"age\":35},\"student\":{\"name\":\"student_name\",\"age\":15}}");
-        mServer.enqueue(mockResponse);
+        server.enqueue(mockResponse);
 
-        Single<Dashboard> dashboardSingle = new FetchDashboardUseCase().getDashboard(mBaseUrl);
+        Single<Dashboard> dashboardSingle = new FetchDashboardUseCase().getDashboard(baseurl);
         Teacher teacher = Teacher.builder().name("teacher_name").age(35).build();
         Student student = Student.builder().name("student_name").age(15).build();
         dashboardSingle.test().assertValue(Dashboard.builder().student(student).teacher(teacher).build());

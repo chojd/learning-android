@@ -8,7 +8,7 @@ import cn.com.ofashion.cleanarchitecture.model.Dashboard;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
-public final class DashboardRespository {
+public final class DashboardRepository {
 
     public Dashboard getDashboard(String baseUrl) throws IOException {
         Retrofit mRetrofit = DaggerHTTPComponent.builder().baseUrl(baseUrl).build().retrofit();
