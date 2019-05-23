@@ -1,5 +1,7 @@
 package cn.com.ofashion.cleanarchitecture.usecase;
 
+import com.google.common.truth.Truth;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,20 +15,18 @@ import io.reactivex.Single;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
-import static org.junit.Assert.*;
-
 public class FetchDashboardUseCaseTest {
 
     private MockWebServer server;
-    private String baseurl;
+    private String baseUrl;
 
     @Before
     public void setUp() throws Exception {
         server = new MockWebServer();
-        assertNotNull(server);
+        Truth.assertThat(server).isNotNull();
         server.start();
 
-        baseurl = server.url("/").toString();
+        baseUrl = server.url("/").toString();
     }
 
     @After
@@ -39,7 +39,7 @@ public class FetchDashboardUseCaseTest {
                 .setBody("{\"teacher\":{\"name\":\"teacher_name\",\"age\":35},\"student\":{\"name\":\"student_name\",\"age\":15}}");
         server.enqueue(mockResponse);
 
-        Single<Dashboard> dashboardSingle = new FetchDashboardUseCase().getDashboard(baseurl);
+        Single<Dashboard> dashboardSingle = new FetchDashboardUseCase().getDashboard(baseUrl);
         Teacher teacher = Teacher.builder().name("teacher_name").age(35).build();
         Student student = Student.builder().name("student_name").age(15).build();
         dashboardSingle.test().assertValue(Dashboard.builder().student(student).teacher(teacher).build());
