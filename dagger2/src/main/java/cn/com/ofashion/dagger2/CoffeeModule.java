@@ -15,9 +15,4 @@ public class CoffeeModule {
     Pump providePump(Heater heater) {
         return new Thermosiphon();
     }
-
-    @Provides
-    Bean provideBean() {
-        return new Bean();
-    }
 }
