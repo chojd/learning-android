@@ -53,7 +53,10 @@ public class DashboardRepositoryTest {
         StudentApi studentApi = apiComponent.studentApi();
         TeacherApi teacherApi = apiComponent.teacherApi();
 
-        DashboardRepository repository = new DashboardRepository(studentApi, teacherApi);
+        StudentRepository studentRepository = new StudentRepository(studentApi);
+        TeacherRepository teacherRepository = new TeacherRepository(teacherApi);
+
+        DashboardRepository repository = new DashboardRepository(studentRepository, teacherRepository);
         Dashboard dashboard = repository.dashboard(MockApiConstants.STUDENT_ID, MockApiConstants.TEACHER_ID);
 
         Truth.assertThat(dashboard).isNotNull();

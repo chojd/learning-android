@@ -7,18 +7,16 @@ import javax.inject.Inject;
 import cn.com.ofashion.cleanarchitecture.api.StudentApi;
 import cn.com.ofashion.cleanarchitecture.model.Student;
 
-public final class StudentRepository {
+public class StudentRepository {
 
-    private String studentId;
     private StudentApi api;
 
     @Inject
-    public StudentRepository(StudentApi api, String studentId) {
+    public StudentRepository(StudentApi api) {
         this.api = api;
-        this.studentId = studentId;
     }
 
-    public Student get() throws IOException {
-        return api.fetch(this.studentId).execute().body();
+    public Student fetch(String studentId) throws IOException {
+        return api.fetch(studentId).execute().body();
     }
 }

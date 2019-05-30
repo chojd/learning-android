@@ -1,25 +1,22 @@
 package cn.com.ofashion.cleanarchitecture.repository;
 
 import java.io.IOException;
-import java.nio.file.Path;
 
 import javax.inject.Inject;
 
 import cn.com.ofashion.cleanarchitecture.api.TeacherApi;
 import cn.com.ofashion.cleanarchitecture.model.Teacher;
 
-public final class TeacherRepository {
+public class TeacherRepository {
 
     private TeacherApi api;
-    private String teacherId;
 
     @Inject
-    public TeacherRepository(TeacherApi api, String teacherId) {
+    public TeacherRepository(TeacherApi api) {
         this.api = api;
-        this.teacherId = teacherId;
     }
 
-    public Teacher fetch() throws IOException {
-        return api.fetch(this.teacherId).execute().body();
+    public Teacher fetch(String teacherId) throws IOException {
+        return api.fetch(teacherId).execute().body();
     }
 }

@@ -5,6 +5,10 @@ import com.google.common.truth.Truth;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.io.IOException;
 
 import cn.com.ofashion.cleanarchitecture.api.ApiComponent;
 import cn.com.ofashion.cleanarchitecture.api.DaggerApiComponent;
@@ -13,14 +17,23 @@ import cn.com.ofashion.cleanarchitecture.model.MockApiConstants;
 import cn.com.ofashion.cleanarchitecture.model.Student;
 import cn.com.ofashion.cleanarchitecture.model.Teacher;
 import cn.com.ofashion.cleanarchitecture.repository.DashboardRepository;
+import cn.com.ofashion.cleanarchitecture.repository.StudentRepository;
+import cn.com.ofashion.cleanarchitecture.repository.TeacherRepository;
 import io.reactivex.Single;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+
+import static org.mockito.BDDMockito.given;
 
 public class FetchDashboardUseCaseTest {
 
     private MockWebServer server;
     private String baseUrl;
+
+    @Mock
+    private TeacherRepository teacherRepository;
+    @Mock
+    private StudentRepository studentRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -29,6 +42,8 @@ public class FetchDashboardUseCaseTest {
         server.start();
 
         baseUrl = server.url("/").toString();
+
+        MockitoAnnotations.initMocks(this);
     }
 
     @After
@@ -47,7 +62,10 @@ public class FetchDashboardUseCaseTest {
 
         ApiComponent apiComponent = DaggerApiComponent.builder().baseUrl(baseUrl).build();
 
-        DashboardRepository dashboardRepository = new DashboardRepository(apiComponent.studentApi(), apiComponent.teacherApi());
+        StudentRepository studentRepository = new StudentRepository(apiComponent.studentApi());
+        TeacherRepository teacherRepository = new TeacherRepository(apiComponent.teacherApi());
+
+        DashboardRepository dashboardRepository = new DashboardRepository(studentRepository, teacherRepository);
 
         FetchDashboardUseCase fetchDashboardUseCase = new FetchDashboardUseCase(dashboardRepository);
 
@@ -58,4 +76,19 @@ public class FetchDashboardUseCaseTest {
 
         dashboardSingle.test().assertValue(Dashboard.builder().student(student).teacher(teacher).build());
     }
+
+    @Test
+    public void mockitoDashboard() throws IOException {
+
+        Student student = Student.builder().name("student_name").age(15).build();
+        Teacher teacher = Teacher.builder().name("teacher_name").age(35).build();
+
+        given(studentRepository.fetch(MockApiConstants.STUDENT_ID)).willReturn(student);
+        given(teacherRepository.fetch(MockApiConstants.TEACHER_ID)).willReturn(teacher);
+
+        DashboardRepository dashboardRepository = new DashboardRepository(studentRepository, teacherRepository);
+        Dashboard dashboard = dashboardRepository.dashboard(MockApiConstants.STUDENT_ID, MockApiConstants.TEACHER_ID);
+        Truth.assertThat(dashboard).isEqualTo(Dashboard.builder().student(student).teacher(teacher).build());
+    }
+
 }
