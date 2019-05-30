@@ -46,7 +46,6 @@ public class ApiComponentTest {
 
     @Test
     public void testApi() {
-        HTTPComponent httpComponent = DaggerHTTPComponent.builder().baseUrl(baseUrl).build();
         TestApi api = DaggerApiComponent.builder().baseUrl(baseUrl).build().testApi();
         Truth.assertThat(api).isNotNull();
     }

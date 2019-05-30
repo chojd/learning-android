@@ -30,6 +30,7 @@ public class DashboardRepositoryTest {
         server.start();
 
         baseUrl = server.url("/").toString();
+        Truth.assertThat(baseUrl).isNotNull();
     }
 
     @After

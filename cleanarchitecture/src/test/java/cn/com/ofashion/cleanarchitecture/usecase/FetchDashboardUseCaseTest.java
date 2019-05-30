@@ -39,12 +39,11 @@ public class FetchDashboardUseCaseTest {
     }
 
     @Test
-    public void getDashboard() throws IOException {
+    public void getDashboard() {
         MockResponse mockResponse = new MockResponse()
                 .setBody("{\"teacher\":{\"name\":\"teacher_name\",\"age\":35},\"student\":{\"name\":\"student_name\",\"age\":15}}");
         server.enqueue(mockResponse);
 
-        HTTPComponent httpComponent = DaggerHTTPComponent.builder().baseUrl(baseUrl).build();
         SchoolApi api = DaggerApiComponent.builder().baseUrl(baseUrl).build().schoolApi();
         DashboardRepository dashboardRepository = new DashboardRepository(api);
         Single<Dashboard> dashboardSingle = new FetchDashboardUseCase(dashboardRepository).getDashboard();
