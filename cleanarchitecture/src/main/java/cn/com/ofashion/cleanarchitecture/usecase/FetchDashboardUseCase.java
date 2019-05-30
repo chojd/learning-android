@@ -1,6 +1,6 @@
 package cn.com.ofashion.cleanarchitecture.usecase;
 
-import java.io.IOException;
+import javax.inject.Inject;
 
 import cn.com.ofashion.cleanarchitecture.model.Dashboard;
 import cn.com.ofashion.cleanarchitecture.repository.DashboardRepository;
@@ -8,9 +8,15 @@ import io.reactivex.Single;
 
 public class FetchDashboardUseCase {
 
-    public Single<Dashboard> getDashboard(final String baseUrl) throws IOException {
-        final DashboardRepository dashboardRespository = new DashboardRepository();
-        Single<Dashboard> dashboardSingle = Single.fromCallable(() -> dashboardRespository.getDashboard(baseUrl));
+    private DashboardRepository repository;
+
+    @Inject
+    public FetchDashboardUseCase(DashboardRepository repository) {
+        this.repository = repository;
+    }
+
+    public Single<Dashboard> getDashboard() {
+        Single<Dashboard> dashboardSingle = Single.fromCallable(() -> this.repository.getDashboard());
         return dashboardSingle;
     }
 }

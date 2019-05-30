@@ -1,12 +1,9 @@
 package cn.com.ofashion.cleanarchitecture.di;
 
-import javax.inject.Singleton;
-
 import dagger.BindsInstance;
 import dagger.Component;
 import retrofit2.Retrofit;
 
-@Singleton
 @Component(modules = RetrofitModule.class)
 public interface HTTPComponent {
 

@@ -8,6 +8,10 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import cn.com.ofashion.cleanarchitecture.api.DaggerApiComponent;
+import cn.com.ofashion.cleanarchitecture.api.SchoolApi;
+import cn.com.ofashion.cleanarchitecture.di.DaggerHTTPComponent;
+import cn.com.ofashion.cleanarchitecture.di.HTTPComponent;
 import cn.com.ofashion.cleanarchitecture.model.Dashboard;
 import cn.com.ofashion.cleanarchitecture.model.Student;
 import cn.com.ofashion.cleanarchitecture.model.Teacher;
@@ -38,7 +42,10 @@ public class DashboardRepositoryTest {
                 .setBody("{\"teacher\":{\"name\":\"teacher_name\",\"age\":35},\"student\":{\"name\":\"student_name\",\"age\":15}}");
         server.enqueue(mockResponse);
 
-        Dashboard dashboard = new DashboardRepository().getDashboard(baseUrl);
+        HTTPComponent httpComponent = DaggerHTTPComponent.builder().baseUrl(baseUrl).build();
+        SchoolApi api = DaggerApiComponent.builder().HTTPComponent(httpComponent).build().schoolApi();
+
+        Dashboard dashboard = new DashboardRepository(api).getDashboard();
 
         Truth.assertThat(dashboard).isNotNull();
 
