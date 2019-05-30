@@ -19,16 +19,6 @@ public class ApiModule {
     }
 
     @Provides
-    SchoolApi schoolApi(HTTPComponent component) {
-        return component.retrofit().create(SchoolApi.class);
-    }
-
-    @Provides
-    TestApi testApi(HTTPComponent component) {
-        return component.retrofit().create(TestApi.class);
-    }
-
-    @Provides
     HTTPComponent component(String baseUrl) {
         return DaggerHTTPComponent.builder().baseUrl(baseUrl).build();
     }

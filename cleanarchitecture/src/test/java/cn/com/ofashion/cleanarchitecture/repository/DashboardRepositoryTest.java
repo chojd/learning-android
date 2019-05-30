@@ -8,11 +8,12 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import cn.com.ofashion.cleanarchitecture.api.ApiComponent;
 import cn.com.ofashion.cleanarchitecture.api.DaggerApiComponent;
-import cn.com.ofashion.cleanarchitecture.api.SchoolApi;
-import cn.com.ofashion.cleanarchitecture.di.DaggerHTTPComponent;
-import cn.com.ofashion.cleanarchitecture.di.HTTPComponent;
+import cn.com.ofashion.cleanarchitecture.api.StudentApi;
+import cn.com.ofashion.cleanarchitecture.api.TeacherApi;
 import cn.com.ofashion.cleanarchitecture.model.Dashboard;
+import cn.com.ofashion.cleanarchitecture.model.MockApiConstants;
 import cn.com.ofashion.cleanarchitecture.model.Student;
 import cn.com.ofashion.cleanarchitecture.model.Teacher;
 import okhttp3.mockwebserver.MockResponse;
@@ -38,14 +39,22 @@ public class DashboardRepositoryTest {
     }
 
     @Test
-    public void getDashboard() throws IOException {
+    public void dashboard() throws IOException {
         MockResponse mockResponse = new MockResponse()
-                .setBody("{\"teacher\":{\"name\":\"teacher_name\",\"age\":35},\"student\":{\"name\":\"student_name\",\"age\":15}}");
+                .setBody("{\"name\":\"student_name\",\"age\":15}");
         server.enqueue(mockResponse);
 
-        SchoolApi api = DaggerApiComponent.builder().baseUrl(baseUrl).build().schoolApi();
+        MockResponse mockResponse1 = new MockResponse()
+                .setBody("{\"name\":\"teacher_name\",\"age\":35}");
+        server.enqueue(mockResponse1);
 
-        Dashboard dashboard = new DashboardRepository(api).getDashboard();
+        ApiComponent apiComponent = DaggerApiComponent.builder().baseUrl(baseUrl).build();
+
+        StudentApi studentApi = apiComponent.studentApi();
+        TeacherApi teacherApi = apiComponent.teacherApi();
+
+        DashboardRepository repository = new DashboardRepository(studentApi, teacherApi);
+        Dashboard dashboard = repository.dashboard(MockApiConstants.STUDENT_ID, MockApiConstants.TEACHER_ID);
 
         Truth.assertThat(dashboard).isNotNull();
 

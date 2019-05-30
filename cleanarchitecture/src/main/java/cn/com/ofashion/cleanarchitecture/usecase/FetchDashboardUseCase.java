@@ -15,8 +15,8 @@ public class FetchDashboardUseCase {
         this.repository = repository;
     }
 
-    public Single<Dashboard> getDashboard() {
-        Single<Dashboard> dashboardSingle = Single.fromCallable(() -> this.repository.getDashboard());
+    public Single<Dashboard> getDashboard(String studentId, String teacherId) {
+        Single<Dashboard> dashboardSingle = Single.fromCallable(() -> this.repository.dashboard(studentId, teacherId));
         return dashboardSingle;
     }
 }

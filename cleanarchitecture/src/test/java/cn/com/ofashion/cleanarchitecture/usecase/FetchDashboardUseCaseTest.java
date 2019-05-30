@@ -6,13 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-
+import cn.com.ofashion.cleanarchitecture.api.ApiComponent;
 import cn.com.ofashion.cleanarchitecture.api.DaggerApiComponent;
-import cn.com.ofashion.cleanarchitecture.api.SchoolApi;
-import cn.com.ofashion.cleanarchitecture.di.DaggerHTTPComponent;
-import cn.com.ofashion.cleanarchitecture.di.HTTPComponent;
 import cn.com.ofashion.cleanarchitecture.model.Dashboard;
+import cn.com.ofashion.cleanarchitecture.model.MockApiConstants;
 import cn.com.ofashion.cleanarchitecture.model.Student;
 import cn.com.ofashion.cleanarchitecture.model.Teacher;
 import cn.com.ofashion.cleanarchitecture.repository.DashboardRepository;
@@ -39,16 +36,26 @@ public class FetchDashboardUseCaseTest {
     }
 
     @Test
-    public void getDashboard() {
+    public void dashboard() {
         MockResponse mockResponse = new MockResponse()
-                .setBody("{\"teacher\":{\"name\":\"teacher_name\",\"age\":35},\"student\":{\"name\":\"student_name\",\"age\":15}}");
+                .setBody("{\"name\":\"student_name\",\"age\":15}");
         server.enqueue(mockResponse);
 
-        SchoolApi api = DaggerApiComponent.builder().baseUrl(baseUrl).build().schoolApi();
-        DashboardRepository dashboardRepository = new DashboardRepository(api);
-        Single<Dashboard> dashboardSingle = new FetchDashboardUseCase(dashboardRepository).getDashboard();
+        MockResponse mockResponse1 = new MockResponse()
+                .setBody("{\"name\":\"teacher_name\",\"age\":35}");
+        server.enqueue(mockResponse1);
+
+        ApiComponent apiComponent = DaggerApiComponent.builder().baseUrl(baseUrl).build();
+
+        DashboardRepository dashboardRepository = new DashboardRepository(apiComponent.studentApi(), apiComponent.teacherApi());
+
+        FetchDashboardUseCase fetchDashboardUseCase = new FetchDashboardUseCase(dashboardRepository);
+
+        Single<Dashboard> dashboardSingle = fetchDashboardUseCase.getDashboard(MockApiConstants.STUDENT_ID, MockApiConstants.TEACHER_ID);
+
         Teacher teacher = Teacher.builder().name("teacher_name").age(35).build();
         Student student = Student.builder().name("student_name").age(15).build();
+
         dashboardSingle.test().assertValue(Dashboard.builder().student(student).teacher(teacher).build());
     }
 }

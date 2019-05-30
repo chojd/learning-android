@@ -7,8 +7,6 @@ import dagger.Component;
 public interface ApiComponent {
     StudentApi studentApi();
     TeacherApi teacherApi();
-    SchoolApi schoolApi();
-    TestApi testApi();
 
     @Component.Builder
     interface Builder {

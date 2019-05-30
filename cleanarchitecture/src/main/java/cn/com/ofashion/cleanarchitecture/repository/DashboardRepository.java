@@ -4,22 +4,27 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import cn.com.ofashion.cleanarchitecture.api.SchoolApi;
+import cn.com.ofashion.cleanarchitecture.api.StudentApi;
+import cn.com.ofashion.cleanarchitecture.api.TeacherApi;
 import cn.com.ofashion.cleanarchitecture.model.Dashboard;
-import retrofit2.Call;
+import cn.com.ofashion.cleanarchitecture.model.Student;
+import cn.com.ofashion.cleanarchitecture.model.Teacher;
 
 public final class DashboardRepository {
 
-    private SchoolApi schoolApi;
+    private StudentApi studentApi;
+    private TeacherApi teacherApi;
 
     @Inject
-    public DashboardRepository(SchoolApi schoolApi) {
-        this.schoolApi = schoolApi;
+    public DashboardRepository(StudentApi studentApi, TeacherApi teacherApi) {
+        this.studentApi = studentApi;
+        this.teacherApi = teacherApi;
     }
 
-    public Dashboard getDashboard() throws IOException {
-        Call<Dashboard> dashboardCall = this.schoolApi.getDashboard();
-        Dashboard dashboard = dashboardCall.execute().body();
+    public Dashboard dashboard(String studentId, String teacherId) throws IOException {
+        Student student = this.studentApi.fetch(studentId).execute().body();
+        Teacher teacher = this.teacherApi.fetch(teacherId).execute().body();
+        Dashboard dashboard = Dashboard.builder().student(student).teacher(teacher).build();
         return dashboard;
     }
 }
