@@ -42,8 +42,7 @@ public class DashboardRepositoryTest {
                 .setBody("{\"teacher\":{\"name\":\"teacher_name\",\"age\":35},\"student\":{\"name\":\"student_name\",\"age\":15}}");
         server.enqueue(mockResponse);
 
-        HTTPComponent httpComponent = DaggerHTTPComponent.builder().baseUrl(baseUrl).build();
-        SchoolApi api = DaggerApiComponent.builder().HTTPComponent(httpComponent).build().schoolApi();
+        SchoolApi api = DaggerApiComponent.builder().baseUrl(baseUrl).build().schoolApi();
 
         Dashboard dashboard = new DashboardRepository(api).getDashboard();
 

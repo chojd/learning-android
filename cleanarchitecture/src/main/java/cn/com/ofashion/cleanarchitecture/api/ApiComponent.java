@@ -1,9 +1,9 @@
 package cn.com.ofashion.cleanarchitecture.api;
 
-import cn.com.ofashion.cleanarchitecture.di.HTTPComponent;
+import dagger.BindsInstance;
 import dagger.Component;
 
-@Component(modules = ApiModule.class, dependencies = HTTPComponent.class)
+@Component(modules = ApiModule.class)
 public interface ApiComponent {
     StudentApi studentApi();
     TeacherApi teacherApi();
@@ -13,7 +13,8 @@ public interface ApiComponent {
     @Component.Builder
     interface Builder {
 
-        Builder HTTPComponent(HTTPComponent component);
+        @BindsInstance
+        Builder baseUrl(String baseUrl);
 
         ApiComponent build();
     }

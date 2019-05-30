@@ -45,7 +45,7 @@ public class FetchDashboardUseCaseTest {
         server.enqueue(mockResponse);
 
         HTTPComponent httpComponent = DaggerHTTPComponent.builder().baseUrl(baseUrl).build();
-        SchoolApi api = DaggerApiComponent.builder().HTTPComponent(httpComponent).build().schoolApi();
+        SchoolApi api = DaggerApiComponent.builder().baseUrl(baseUrl).build().schoolApi();
         DashboardRepository dashboardRepository = new DashboardRepository(api);
         Single<Dashboard> dashboardSingle = new FetchDashboardUseCase(dashboardRepository).getDashboard();
         Teacher teacher = Teacher.builder().name("teacher_name").age(35).build();

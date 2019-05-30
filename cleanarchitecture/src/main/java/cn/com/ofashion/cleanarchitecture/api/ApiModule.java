@@ -1,5 +1,6 @@
 package cn.com.ofashion.cleanarchitecture.api;
 
+import cn.com.ofashion.cleanarchitecture.di.DaggerHTTPComponent;
 import cn.com.ofashion.cleanarchitecture.di.HTTPComponent;
 import dagger.Module;
 import dagger.Provides;
@@ -25,5 +26,10 @@ public class ApiModule {
     @Provides
     TestApi testApi(HTTPComponent component) {
         return component.retrofit().create(TestApi.class);
+    }
+
+    @Provides
+    HTTPComponent component(String baseUrl) {
+        return DaggerHTTPComponent.builder().baseUrl(baseUrl).build();
     }
 }

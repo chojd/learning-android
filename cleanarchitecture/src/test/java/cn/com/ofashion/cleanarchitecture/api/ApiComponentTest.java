@@ -28,29 +28,26 @@ public class ApiComponentTest {
 
     @Test
     public void studentApi() {
-        HTTPComponent httpComponent = DaggerHTTPComponent.builder().baseUrl(baseUrl).build();
-        StudentApi api = DaggerApiComponent.builder().HTTPComponent(httpComponent).build().studentApi();
+        StudentApi api = DaggerApiComponent.builder().baseUrl(baseUrl).build().studentApi();
         Truth.assertThat(api).isNotNull();
     }
 
     @Test
     public void teacherApi() {
-        HTTPComponent httpComponent = DaggerHTTPComponent.builder().baseUrl(baseUrl).build();
-        TeacherApi api = DaggerApiComponent.builder().HTTPComponent(httpComponent).build().teacherApi();
+        TeacherApi api = DaggerApiComponent.builder().baseUrl(baseUrl).build().teacherApi();
         Truth.assertThat(api).isNotNull();
     }
 
     @Test
     public void schoolApi() {
-        HTTPComponent httpComponent = DaggerHTTPComponent.builder().baseUrl(baseUrl).build();
-        SchoolApi api = DaggerApiComponent.builder().HTTPComponent(httpComponent).build().schoolApi();
+        SchoolApi api = DaggerApiComponent.builder().baseUrl(baseUrl).build().schoolApi();
         Truth.assertThat(api).isNotNull();
     }
 
     @Test
     public void testApi() {
         HTTPComponent httpComponent = DaggerHTTPComponent.builder().baseUrl(baseUrl).build();
-        TestApi api = DaggerApiComponent.builder().HTTPComponent(httpComponent).build().testApi();
+        TestApi api = DaggerApiComponent.builder().baseUrl(baseUrl).build().testApi();
         Truth.assertThat(api).isNotNull();
     }
 }
