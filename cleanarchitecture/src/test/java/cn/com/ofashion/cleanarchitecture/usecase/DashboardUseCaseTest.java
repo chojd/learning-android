@@ -25,7 +25,7 @@ import okhttp3.mockwebserver.MockWebServer;
 
 import static org.mockito.BDDMockito.given;
 
-public class FetchDashboardUseCaseTest {
+public class DashboardUseCaseTest {
 
     private MockWebServer server;
     private String baseUrl;
@@ -67,9 +67,9 @@ public class FetchDashboardUseCaseTest {
 
         DashboardRepository dashboardRepository = new DashboardRepository(studentRepository, teacherRepository);
 
-        FetchDashboardUseCase fetchDashboardUseCase = new FetchDashboardUseCase(dashboardRepository);
+        DashboardUseCase dashboardUseCase = new DashboardUseCase(dashboardRepository);
 
-        Single<Dashboard> dashboardSingle = fetchDashboardUseCase.getDashboard(MockApiConstants.STUDENT_ID, MockApiConstants.TEACHER_ID);
+        Single<Dashboard> dashboardSingle = dashboardUseCase.getDashboard(MockApiConstants.STUDENT_ID, MockApiConstants.TEACHER_ID);
 
         Teacher teacher = Teacher.builder().name("teacher_name").age(35).build();
         Student student = Student.builder().name("student_name").age(15).build();

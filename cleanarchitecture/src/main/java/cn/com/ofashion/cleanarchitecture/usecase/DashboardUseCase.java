@@ -6,12 +6,12 @@ import cn.com.ofashion.cleanarchitecture.model.Dashboard;
 import cn.com.ofashion.cleanarchitecture.repository.DashboardRepository;
 import io.reactivex.Single;
 
-public class FetchDashboardUseCase {
+public class DashboardUseCase {
 
     private DashboardRepository repository;
 
     @Inject
-    public FetchDashboardUseCase(DashboardRepository repository) {
+    public DashboardUseCase(DashboardRepository repository) {
         this.repository = repository;
     }
 
