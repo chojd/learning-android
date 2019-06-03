@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import cn.com.ofashion.cleanarchitecture.component.DaggerDashboardComponent;
 import cn.com.ofashion.cleanarchitecture.di.DaggerHTTPComponent;
 import cn.com.ofashion.cleanarchitecture.model.Dashboard;
 import cn.com.ofashion.cleanarchitecture.model.Student;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements DashboardView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        presenter = new DashboardPresenter(null, this);
+        this.presenter = DaggerDashboardComponent.builder().dashboardView(this).baseUrl("http://localhost/").build().presenter();
 
         this.centerTV = findViewById(R.id.tv_title);
     }

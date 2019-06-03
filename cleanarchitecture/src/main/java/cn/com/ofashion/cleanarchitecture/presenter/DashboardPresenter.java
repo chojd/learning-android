@@ -2,7 +2,6 @@ package cn.com.ofashion.cleanarchitecture.presenter;
 
 import javax.inject.Inject;
 
-import cn.com.ofashion.cleanarchitecture.model.Dashboard;
 import cn.com.ofashion.cleanarchitecture.usecase.DashboardUseCase;
 
 public class DashboardPresenter {
