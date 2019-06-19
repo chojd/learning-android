@@ -1,1 +1,1 @@
-include ':app', ':autovalue', ':retrofit', ':nativerouter', ':dagger', ':dagger2', ':httpservice', ':cleanarchitecture'
+include ':app', ':autovalue', ':retrofit', ':nativerouter', ':dagger', ':dagger2', ':httpservice', ':cleanarchitecture', ':annotation'
