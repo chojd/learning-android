@@ -2,7 +2,6 @@ apply plugin: 'java-library'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'junit:junit:4.12'
     // https://mvnrepository.com/artifact/com.google.truth/truth
     testImplementation group: 'com.google.truth', name: 'truth', version: '0.44'
     compile 'com.squareup:javapoet:1.11.1'

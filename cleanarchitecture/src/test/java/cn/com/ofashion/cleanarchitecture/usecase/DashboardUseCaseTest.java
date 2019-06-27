@@ -52,6 +52,7 @@ public class DashboardUseCaseTest {
 
     @Test
     public void dashboard() {
+        // given
         MockResponse mockResponse = new MockResponse()
                 .setBody("{\"name\":\"student_name\",\"age\":15}");
         server.enqueue(mockResponse);
@@ -69,11 +70,13 @@ public class DashboardUseCaseTest {
 
         DashboardUseCase dashboardUseCase = new DashboardUseCase(dashboardRepository);
 
+        // when
         Single<Dashboard> dashboardSingle = dashboardUseCase.getDashboard(MockApiConstants.STUDENT_ID, MockApiConstants.TEACHER_ID);
 
         Teacher teacher = Teacher.builder().name("teacher_name").age(35).build();
         Student student = Student.builder().name("student_name").age(15).build();
 
+        // then
         dashboardSingle.test().assertValue(Dashboard.builder().student(student).teacher(teacher).build());
     }
 
