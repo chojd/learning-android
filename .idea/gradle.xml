@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/javapoet" />
             <option value="$PROJECT_DIR$/montage-annotation" />
             <option value="$PROJECT_DIR$/montage-compiler" />
+            <option value="$PROJECT_DIR$/montage-using" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

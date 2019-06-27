@@ -5,12 +5,11 @@ dependencies {
 
     implementation project(':montage-annotation')
 
+    annotationProcessor project(':montage-compiler')
+    testAnnotationProcessor project(':montage-compiler')
+
     // https://mvnrepository.com/artifact/com.google.truth/truth
     testImplementation group: 'com.google.truth', name: 'truth', version: '0.44'
-    implementation 'com.squareup:javapoet:1.11.1'
-
-    // https://mvnrepository.com/artifact/com.google.auto.service/auto-service
-    implementation group: 'com.google.auto.service', name: 'auto-service', version: '1.0-rc5'
 }
 
 sourceCompatibility = "7"

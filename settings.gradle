@@ -1,4 +1,4 @@
-include ':app',
+include ':app', ':montage-using',
         ':auto-value',
         ':http-service',
         ':clean-architecture',
