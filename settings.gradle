@@ -1,8 +1,8 @@
 include ':app',
-        ':autovalue',
-        ':httpservice',
+        ':auto-value',
+        ':http-service',
         ':clean-architecture',
         ':javapoet',
         ':dagger',
-        ':montage-annotation',
-        ':montage-compiler'
+        ':montage-compiler',
+        ':montage-annotation'

@@ -9,10 +9,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/autovalue" />
+            <option value="$PROJECT_DIR$/auto-value" />
             <option value="$PROJECT_DIR$/clean-architecture" />
             <option value="$PROJECT_DIR$/dagger" />
-            <option value="$PROJECT_DIR$/httpservice" />
+            <option value="$PROJECT_DIR$/http-service" />
             <option value="$PROJECT_DIR$/javapoet" />
             <option value="$PROJECT_DIR$/montage-annotation" />
             <option value="$PROJECT_DIR$/montage-compiler" />
