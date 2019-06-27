@@ -74,7 +74,7 @@ public class MontageProcessor extends AbstractProcessor {
             TypeSpec typeSpec = TypeSpec
                     .classBuilder("MontageFactory")
 //                    .addField(mField)
-                    .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                    .addModifiers(Modifier.PUBLIC)
                     .addMethod(methodSpec)
                     .build();
 

@@ -1,4 +1,4 @@
-package cn.com.ofashion.montageusing;
+package cn.com.ofashion.montage.using;
 
 import com.google.common.truth.Truth;
 
@@ -25,6 +25,6 @@ public class HelloBeanTest {
 
     @Test
     public void beanFactory() {
-
+//        MontageFactory montageFactory;
     }
 }
