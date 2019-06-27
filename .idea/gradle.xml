@@ -8,12 +8,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/NativeRouter" />
             <option value="$PROJECT_DIR$/annotation" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/autovalue" />
             <option value="$PROJECT_DIR$/cleanarchitecture" />
-            <option value="$PROJECT_DIR$/dagger2" />
+            <option value="$PROJECT_DIR$/dagger" />
             <option value="$PROJECT_DIR$/httpservice" />
             <option value="$PROJECT_DIR$/javapoet" />
           </set>

@@ -1,4 +1,4 @@
-package cn.com.ofashion.dagger2;
+package cn.com.ofashion.dagger;
 
 public abstract class Heater {
 }
