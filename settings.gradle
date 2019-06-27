@@ -1,1 +1,8 @@
-include ':app', ':autovalue', ':httpservice', ':cleanarchitecture', ':annotation', ':javapoet', ':dagger'
+include ':app',
+        ':autovalue',
+        ':httpservice',
+        ':clean-architecture',
+        ':javapoet',
+        ':dagger',
+        ':montage-annotation',
+        ':montage-compiler'

@@ -1,8 +1,5 @@
 package cn.com.ofashion.httpservice.model;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
@@ -17,15 +14,12 @@ public abstract class Metadata  {
         return new AutoValue_Metadata.GsonTypeAdapter(gson);
     }
 
-    @NonNull
     @SerializedName("code")
     public abstract int code();
 
-    @Nullable
     @SerializedName("data")
     public abstract Map data();
 
-    @NonNull
     @SerializedName("message")
     public abstract String message();
 
