@@ -13,11 +13,9 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/autovalue" />
             <option value="$PROJECT_DIR$/cleanarchitecture" />
-            <option value="$PROJECT_DIR$/dagger" />
             <option value="$PROJECT_DIR$/dagger2" />
             <option value="$PROJECT_DIR$/httpservice" />
             <option value="$PROJECT_DIR$/javapoet" />
-            <option value="$PROJECT_DIR$/retrofit" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
