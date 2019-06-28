@@ -1,6 +1,7 @@
 package cn.com.ofashion.montage.compiler;
 
 import com.google.auto.service.AutoService;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -11,7 +12,9 @@ import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -42,6 +45,9 @@ public class MontageProcessor extends AbstractProcessor {
 
     static private int flag = 0;
 
+    private final String packageName = "cn.com.ofashion.montage";
+    private final String simpleClassName = "MontageFactory";
+
     @Override
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
         super.init(processingEnvironment);
@@ -55,31 +61,18 @@ public class MontageProcessor extends AbstractProcessor {
         if (MontageProcessor.flag == 0) {
             MontageProcessor.flag = 1;
 
-//            FieldSpec mField = FieldSpec
-//                    .builder(TypeName.INT, "beanCount", Modifier.PRIVATE, Modifier.FINAL)
-//                    .build();
-
-            ParameterSpec parameterSpec = ParameterSpec
-                    .builder(String.class, "greet")
-                    .build();
-
-            MethodSpec methodSpec = MethodSpec
-                    .methodBuilder("helloWorld")
-                    .addModifiers(Modifier.PUBLIC)
-                    .addParameter(parameterSpec)
-                    .returns(void.class)
-                    .addStatement("System.out.println(greet)")
-                    .build();
-
             TypeSpec typeSpec = TypeSpec
-                    .classBuilder("MontageFactory")
-//                    .addField(mField)
+                    .classBuilder(simpleClassName)
                     .addModifiers(Modifier.PUBLIC)
-                    .addMethod(methodSpec)
+                    .addField(hashTableField())
+                    .addField(instanceField())
+                    .addMethod(constructorMethod())
+                    .addMethod(getInstance())
+                    .addMethod(registerMethod())
                     .build();
 
             JavaFile javaFile = JavaFile
-                    .builder("cn.com.ofashion.montage", typeSpec)
+                    .builder(packageName, typeSpec)
                     .build();
 
             try {
@@ -89,7 +82,7 @@ public class MontageProcessor extends AbstractProcessor {
             }
         }
 
-        for (Element element: roundEnvironment.getElementsAnnotatedWith(MontageBean.class)) {
+        for (Element element : roundEnvironment.getElementsAnnotatedWith(MontageBean.class)) {
             TypeElement typeElement = (TypeElement) element;
             if (element.getKind() != ElementKind.CLASS) {
                 printError(element, "not support type");
@@ -97,6 +90,7 @@ public class MontageProcessor extends AbstractProcessor {
             }
 
             MontageBean annotation = element.getAnnotation(MontageBean.class);
+
         }
         return true;
     }
@@ -106,6 +100,74 @@ public class MontageProcessor extends AbstractProcessor {
         Set<String> singleton = Collections.singleton(MontageBean.class.getCanonicalName());
         assert singleton.size() == 1;
         return singleton;
+    }
+
+    private ParameterSpec typeParameterSpec() {
+        ParameterSpec typeParameterSpec = ParameterSpec
+                .builder(TypeName.INT, "type", Modifier.FINAL)
+                .build();
+        return typeParameterSpec;
+    }
+
+    private ParameterSpec classNameParameterSpec() {
+        ParameterSpec typeParameterSpec = ParameterSpec
+                .builder(ClassName.get(String.class), "className", Modifier.FINAL)
+                .build();
+        return typeParameterSpec;
+    }
+
+
+    private ClassName targetClassName() {
+        ClassName montageFactory = ClassName.get(packageName, simpleClassName);
+        return montageFactory;
+    }
+
+    private MethodSpec getInstance() {
+        MethodSpec getInstance = MethodSpec
+                .methodBuilder("getInstance")
+                .addModifiers(Modifier.STATIC, Modifier.PUBLIC)
+                .addCode("return instance;\n")
+                .returns(ClassName.get(packageName,simpleClassName))
+                .build();
+        return getInstance;
+    }
+
+    private FieldSpec hashTableField() {
+        FieldSpec hashTableField = FieldSpec
+                .builder(ClassName.get(Hashtable.class), "hashTable", Modifier.PUBLIC)
+                .build();
+        return hashTableField;
+    }
+
+    private FieldSpec instanceField() {
+        FieldSpec instanceField = FieldSpec
+                .builder(targetClassName(), "instance", Modifier.PRIVATE, Modifier.STATIC)
+                .initializer("new " + simpleClassName + "()")
+                .build();
+        return instanceField;
+    }
+
+
+    private MethodSpec registerMethod() {
+        MethodSpec methodSpec = MethodSpec
+                .methodBuilder("registerBean")
+                .addModifiers(Modifier.PUBLIC)
+                .addParameter(typeParameterSpec())
+                .addParameter(classNameParameterSpec())
+                .addCode("hashTable.put(type, className);\n")
+                .returns(TypeName.VOID)
+                .build();
+        return methodSpec;
+    }
+
+
+    private MethodSpec constructorMethod() {
+        MethodSpec constructorMethod = MethodSpec
+                .constructorBuilder()
+                .addModifiers(Modifier.PRIVATE)
+                .addCode("\nhashTable = new " + Hashtable.class.getSimpleName() + "();\n")
+                .build();
+        return constructorMethod;
     }
 
     private void printError(Element element, String message, Object... args) {

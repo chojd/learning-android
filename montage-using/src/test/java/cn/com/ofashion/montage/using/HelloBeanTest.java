@@ -22,11 +22,11 @@ public class HelloBeanTest {
     public void annotation() {
         HelloBean helloBean = new HelloBean();
         Truth.assertThat(helloBean).isNotNull();
-
     }
 
     @Test
     public void beanFactory() {
-        MontageFactory montageFactory;
+        MontageFactory montageFactory = new MontageFactory();
+        Truth.assertThat(montageFactory).isNotNull();
     }
 }
