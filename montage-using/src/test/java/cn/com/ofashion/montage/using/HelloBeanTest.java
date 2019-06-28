@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import cn.com.ofashion.montage.MontageFactory;
+
 public class HelloBeanTest {
 
     @Before
@@ -25,6 +27,6 @@ public class HelloBeanTest {
 
     @Test
     public void beanFactory() {
-//        MontageFactory montageFactory;
+        MontageFactory montageFactory;
     }
 }
