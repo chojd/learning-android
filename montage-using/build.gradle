@@ -1,5 +1,12 @@
-apply plugin: 'java-library'
+apply plugin: 'com.android.library'
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 26
+        targetSdkVersion 28
 
+    }
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
