@@ -1,4 +1,4 @@
-package com.chojd.recyclerview;
+package com.chojd.paging;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.chojd.recyclerview", appContext.getPackageName());
+        assertEquals("com.chojd.paging", appContext.getPackageName());
     }
 }

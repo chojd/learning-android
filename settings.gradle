@@ -1,4 +1,4 @@
-include ':app', ':montage-using', ':recyclerview',
+include ':app', ':montage-using', ':recyclerview', ':paging',
         ':auto-value',
         ':http-service',
         ':clean-architecture',
